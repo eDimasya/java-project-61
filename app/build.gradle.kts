@@ -27,6 +27,10 @@ tasks.jar {
     }
 }
 
+tasks.getByName("run", JavaExec::class) {
+    standardInput = System.`in`
+}
+
 application {
     mainClass.set("hexlet.code.App")
 }
