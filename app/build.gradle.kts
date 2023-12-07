@@ -21,6 +21,12 @@ tasks.test {
     useJUnitPlatform()
 }
 
+tasks.jar {
+    manifest {
+        attributes["Main-Class"] = "hexlet.code.App"
+    }
+}
+
 application {
     mainClass.set("hexlet.code.App")
 }
