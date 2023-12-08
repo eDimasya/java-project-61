@@ -9,3 +9,5 @@ Even:
 Calc:
 [![asciicast](https://asciinema.org/a/24redmkQuhY9Kirhdok6yF1Ea.svg)](https://asciinema.org/a/24redmkQuhY9Kirhdok6yF1Ea)
 
+GCD:
+[![asciicast](https://asciinema.org/a/4nq4Rluziywa8Sst8vXGrgT7p.svg)](https://asciinema.org/a/4nq4Rluziywa8Sst8vXGrgT7p)

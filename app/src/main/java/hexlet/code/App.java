@@ -2,6 +2,7 @@ package hexlet.code;
 
 import hexlet.code.games.Calc;
 import hexlet.code.games.Even;
+import hexlet.code.games.GCD;
 
 public class App {
     public static void main(String[] args) {
@@ -16,6 +17,10 @@ public class App {
                 case "3" -> {
                     Calc calcGame = new Calc(username);
                     calcGame.startGame();
+                }
+                case "4" -> {
+                    GCD gcdGame = new GCD(username);
+                    gcdGame.startGame();
                 }
                 default -> {
                 }
