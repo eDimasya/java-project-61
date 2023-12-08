@@ -1,55 +1,32 @@
 package hexlet.code.games;
 
-import hexlet.code.Cli;
-
-import java.util.Random;
+import hexlet.code.Engine;
 
 public class Even {
-    private final String username;
-    private int successCounter = 0;
+    private Engine engine;
 
     public Even(String username) {
-        this.username = username;
+        engine = new Engine(username);
     }
 
     public void startGame() {
         System.out.println("Answer 'yes' if the number is even, otherwise answer 'no'.");
-        while (successCounter < 3) {
-            successCount(printQuestion(), setUserAnswer());
+        while (!engine.isEndGame()) {
+            String correctAnswer = askQuestion();
+            String userAnswer = Engine.setUserAnswer();
+            engine.checkAnswer(userAnswer, correctAnswer);
         }
-        GameMaster.printCongratulation(username);
     }
-
-    private int generateNum() {
-        Random random = new Random();
-        return random.nextInt(101);
-    }
-
-    private String printQuestion() {
-        int randomNum = generateNum();
-        System.out.println("Question: " + randomNum);
+    private String askQuestion() {
+        int randomNum = Engine.generateNum();
+        Engine.printQuestion(String.valueOf(randomNum));
         if (isEven(randomNum)) {
             return "yes";
         } else {
             return "no";
         }
     }
-    private String setUserAnswer() {
-        return Cli.answerOnQuestion("Your answer: ");
-    }
-
     private boolean isEven(int num) {
         return (num % 2 == 0);
-    }
-
-    private void successCount(String correctAnswer, String answer) {
-        if (answer.equals(correctAnswer)) {
-            GameMaster.printIsCorrect();
-            successCounter += 1;
-        } else {
-            System.out.println("'" + answer + "' is wrong answer ;(. Correct answer was '" + correctAnswer + "'");
-            GameMaster.printTryAgain(username);
-            successCounter = 0;
-        }
     }
 }
