@@ -34,7 +34,7 @@ public class Engine {
     private boolean endGame = false;
     private int successCounter = 0;
     private final String username;
-    public Engine(String username) {
+    public Engine(final String username) {
         this.username = username;
     }
 
@@ -55,7 +55,9 @@ public class Engine {
         }
     }
     public static int generateRandomNum() {
-        return generateRandomNum(0, 100);
+        int min = 0;
+        int max = 100;
+        return generateRandomNum(min, max);
     }
     public static int generateRandomNum(int min, int max) {
         Random random = new Random();

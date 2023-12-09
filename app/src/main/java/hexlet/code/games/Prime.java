@@ -3,23 +3,23 @@ package hexlet.code.games;
 import hexlet.code.Engine;
 
 public class Prime {
-    private Engine engine;
+    private final Engine game;
 
-    public Prime(String username) {
-        engine = new Engine(username);
+    public Prime(final String username) {
+        game = new Engine(username);
     }
 
     public void startGame() {
         System.out.println("Answer 'yes' if given number is prime. Otherwise answer 'no'.");
-        while (!engine.isEndGame()) {
+        while (!game.isEndGame()) {
             String correctAnswer = askQuestion();
             String userAnswer = Engine.setUserAnswer();
-            engine.checkAnswer(userAnswer, correctAnswer);
+            game.checkAnswer(userAnswer, correctAnswer);
         }
     }
 
     private String askQuestion() {
-        int num = Engine.generateRandomNum(0, 100);
+        int num = Engine.generateRandomNum();
         Engine.printQuestion(String.valueOf(num));
         if (checkNumIsPrime(num)) {
             return "yes";

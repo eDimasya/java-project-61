@@ -3,16 +3,18 @@ package hexlet.code.games;
 import hexlet.code.Engine;
 
 public class GCD {
-    private Engine engine;
-    public GCD(String username) {
-        engine = new Engine(username);
+    private final Engine game;
+
+    public GCD(final String username) {
+        game = new Engine(username);
     }
+
     public void startGame() {
         System.out.println("Find the greatest common divisor of given numbers.");
-        while (!engine.isEndGame()) {
+        while (!game.isEndGame()) {
             String correctAnswer = askQuestion();
             String userAnswer = Engine.setUserAnswer();
-            engine.checkAnswer(userAnswer, correctAnswer);
+            game.checkAnswer(userAnswer, correctAnswer);
         }
     }
 

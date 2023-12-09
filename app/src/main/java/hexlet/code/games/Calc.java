@@ -3,16 +3,24 @@ package hexlet.code.games;
 import hexlet.code.Engine;
 
 public class Calc {
-    private Engine engine;
-    public Calc(String username) {
-        engine = new Engine(username);
+    private final Engine game;
+
+    /**
+     * @param username Username
+     */
+    public Calc(final String username) {
+        game = new Engine(username);
     }
+
+    /**
+     * Start the game.
+     */
     public void startGame() {
         System.out.println("What is the result of the expression?");
-        while (!engine.isEndGame()) {
+        while (!game.isEndGame()) {
             String correctAnswer = askQuestion();
             String userAnswer = Engine.setUserAnswer();
-            engine.checkAnswer(userAnswer, correctAnswer);
+            game.checkAnswer(userAnswer, correctAnswer);
         }
     }
 
@@ -23,10 +31,12 @@ public class Calc {
         Engine.printQuestion(a + " " + operation + " " + b);
         return calculate(a, b, operation);
     }
+
     private String randomOperation() {
         String operations = "+-*";
         return Engine.randomStringChar(operations);
     }
+
     private String calculate(int a, int b, String operation) {
         int result = 0;
         switch (operation) {
@@ -39,7 +49,8 @@ public class Calc {
             case "*" -> {
                 result = a * b;
             }
-            default -> { }
+            default -> {
+            }
         }
         return String.valueOf(result);
     }

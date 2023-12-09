@@ -7,10 +7,10 @@ import hexlet.code.games.Prime;
 import hexlet.code.games.Progression;
 
 public class App {
-    public static void main(String[] args) {
+    public static void main(final String[] args) {
         String pickedOption = Engine.chooseGame();
         if (!pickedOption.equals("0")) {
-            String username = Cli.userIntroduction();
+            final String username = Cli.userIntroduction();
             switch (pickedOption) {
                 case "2" -> {
                     Even evenGame = new Even(username);

@@ -3,20 +3,21 @@ package hexlet.code.games;
 import hexlet.code.Engine;
 
 public class Even {
-    private Engine engine;
+    private final Engine game;
 
-    public Even(String username) {
-        engine = new Engine(username);
+    public Even(final String username) {
+        game = new Engine(username);
     }
 
     public void startGame() {
         System.out.println("Answer 'yes' if the number is even, otherwise answer 'no'.");
-        while (!engine.isEndGame()) {
+        while (!game.isEndGame()) {
             String correctAnswer = askQuestion();
             String userAnswer = Engine.setUserAnswer();
-            engine.checkAnswer(userAnswer, correctAnswer);
+            game.checkAnswer(userAnswer, correctAnswer);
         }
     }
+
     private String askQuestion() {
         int randomNum = Engine.generateRandomNum();
         Engine.printQuestion(String.valueOf(randomNum));
@@ -26,6 +27,7 @@ public class Even {
             return "no";
         }
     }
+
     private boolean isEven(int num) {
         return (num % 2 == 0);
     }
