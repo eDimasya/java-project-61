@@ -62,7 +62,7 @@ public class Engine {
         }
     }
     public static int generateRandomNum() {
-        final int min = 0;
+        final int min = 1;
         final int max = 100;
         return generateRandomNum(min, max);
     }
