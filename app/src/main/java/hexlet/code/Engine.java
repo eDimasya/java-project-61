@@ -38,8 +38,8 @@ public class Engine {
     private boolean gameInProgress = true;
     private int winCount = 0;
     private final String username;
-    public Engine(final String username) {
-        this.username = username;
+    public Engine(final String name) {
+        this.username = name;
     }
 
     /**
