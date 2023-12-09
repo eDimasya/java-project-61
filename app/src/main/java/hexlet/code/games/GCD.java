@@ -17,8 +17,8 @@ public class GCD {
     }
 
     private String askQuestion() {
-        int a = Engine.generateNum();
-        int b = Engine.generateNum();
+        int a = Engine.generateRandomNum();
+        int b = Engine.generateRandomNum();
         Engine.printQuestion(a + " " + b);
         return findGCD(a, b);
     }

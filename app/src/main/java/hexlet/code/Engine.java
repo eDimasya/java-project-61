@@ -10,6 +10,7 @@ public class Engine {
                 2 - Even
                 3 - Calc
                 4 - GCD
+                5 - Progression
                 0 - Exit""");
     }
 
@@ -52,9 +53,12 @@ public class Engine {
             endGame = true;
         }
     }
-    public static int generateNum() {
+    public static int generateRandomNum() {
+        return generateRandomNum(0, 100);
+    }
+    public static int generateRandomNum(int min, int max) {
         Random random = new Random();
-        return random.nextInt(101);
+        return random.nextInt(max - min + 1) + min;
     }
     public static String randomStringChar(String str) {
         Random random = new Random();

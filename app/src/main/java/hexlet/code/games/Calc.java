@@ -17,8 +17,8 @@ public class Calc {
     }
 
     private String askQuestion() {
-        int a = Engine.generateNum();
-        int b = Engine.generateNum();
+        int a = Engine.generateRandomNum();
+        int b = Engine.generateRandomNum();
         String operation = randomOperation();
         Engine.printQuestion(a + " " + operation + " " + b);
         return calculate(a, b, operation);

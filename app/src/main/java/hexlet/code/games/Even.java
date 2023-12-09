@@ -18,7 +18,7 @@ public class Even {
         }
     }
     private String askQuestion() {
-        int randomNum = Engine.generateNum();
+        int randomNum = Engine.generateRandomNum();
         Engine.printQuestion(String.valueOf(randomNum));
         if (isEven(randomNum)) {
             return "yes";
