@@ -20,7 +20,7 @@ public class Progression {
      */
     public void startGame() {
         System.out.println("What number is missing in the progression?");
-        while (!game.isEndGame()) {
+        while (game.isGameInProgress()) {
             String correctAnswer = askQuestion();
             String userAnswer = Engine.setUserAnswer();
             game.checkAnswer(userAnswer, correctAnswer);
@@ -50,12 +50,12 @@ public class Progression {
      * @return sequence of num in progression
      */
     private int[] createProgression() {
-        int minNumBegin = 0;
-        int maxNumBegin = 100;
-        int minAmount = 5;
-        int maxAmount = 10;
-        int minGap = -10;
-        int maxGap = 10;
+        final int minNumBegin = 0;
+        final int maxNumBegin = 100;
+        final int minAmount = 5;
+        final int maxAmount = 10;
+        final int minGap = -10;
+        final int maxGap = 10;
         int begin = Engine.generateRandomNum(minNumBegin, maxNumBegin);
         int amount = Engine.generateRandomNum(minAmount, maxAmount);
         int gap = Engine.generateRandomNum(minGap, maxGap);

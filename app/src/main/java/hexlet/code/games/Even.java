@@ -9,9 +9,12 @@ public class Even {
         game = new Engine(username);
     }
 
+    /**
+     * Start the game.
+     */
     public void startGame() {
         System.out.println("Answer 'yes' if the number is even, otherwise answer 'no'.");
-        while (!game.isEndGame()) {
+        while (game.isGameInProgress()) {
             String correctAnswer = askQuestion();
             String userAnswer = Engine.setUserAnswer();
             game.checkAnswer(userAnswer, correctAnswer);

@@ -9,9 +9,12 @@ public class Prime {
         game = new Engine(username);
     }
 
+    /**
+     * Start the game.
+     */
     public void startGame() {
         System.out.println("Answer 'yes' if given number is prime. Otherwise answer 'no'.");
-        while (!game.isEndGame()) {
+        while (game.isGameInProgress()) {
             String correctAnswer = askQuestion();
             String userAnswer = Engine.setUserAnswer();
             game.checkAnswer(userAnswer, correctAnswer);

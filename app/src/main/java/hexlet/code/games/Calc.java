@@ -17,7 +17,7 @@ public class Calc {
      */
     public void startGame() {
         System.out.println("What is the result of the expression?");
-        while (!game.isEndGame()) {
+        while (game.isGameInProgress()) {
             String correctAnswer = askQuestion();
             String userAnswer = Engine.setUserAnswer();
             game.checkAnswer(userAnswer, correctAnswer);

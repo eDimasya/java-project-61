@@ -28,35 +28,42 @@ public class Engine {
         System.out.println("'" + userAnswer + "' is wrong answer ;(. Correct answer was '" + correctAnswer + "'");
         printTryAgain();
     }
-    public boolean isEndGame() {
-        return endGame;
+
+    /**
+     * @return End game property. If false - then game over
+     */
+    public boolean isGameInProgress() {
+        return gameInProgress;
     }
-    private boolean endGame = false;
-    private int successCounter = 0;
+    private boolean gameInProgress = true;
+    private int winCount = 0;
     private final String username;
     public Engine(final String username) {
         this.username = username;
     }
 
-    private void plusSuccess() {
-        this.successCounter += 1;
-    }
+    /**
+     * Answers checker.
+     * @param userAnswer User Answer
+     * @param correctAnswer Correct Answer
+     */
     public void checkAnswer(String userAnswer, String correctAnswer) {
+        final int winsForEndGame = 3;
         if (correctAnswer.equals(userAnswer)) {
-            plusSuccess();
+            winCount++;
             printIsCorrect();
-            if (successCounter == 3) {
+            if (winCount == winsForEndGame) {
                 printCongratulation();
-                endGame = true;
+                gameInProgress = false;
             }
         } else {
             printAnswerIsWrong(userAnswer, correctAnswer);
-            endGame = true;
+            gameInProgress = false;
         }
     }
     public static int generateRandomNum() {
-        int min = 0;
-        int max = 100;
+        final int min = 0;
+        final int max = 100;
         return generateRandomNum(min, max);
     }
     public static int generateRandomNum(int min, int max) {

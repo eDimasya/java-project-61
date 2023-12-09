@@ -9,9 +9,12 @@ public class GCD {
         game = new Engine(username);
     }
 
+    /**
+     * Start the game.
+     */
     public void startGame() {
         System.out.println("Find the greatest common divisor of given numbers.");
-        while (!game.isEndGame()) {
+        while (game.isGameInProgress()) {
             String correctAnswer = askQuestion();
             String userAnswer = Engine.setUserAnswer();
             game.checkAnswer(userAnswer, correctAnswer);
