@@ -1,36 +1,40 @@
 package hexlet.code.games;
 
 import hexlet.code.Engine;
+import hexlet.code.Utils;
+
+import static hexlet.code.Utils.AMOUNT_OF_WINS_FOR_VICTORY;
 
 public class Progression {
     /**
-     * Game master initialization.
-     */
-    private final Engine game;
-
-    /**
+     * Start the game.
+     *
      * @param username Username
      */
-    public Progression(final String username) {
-        game = new Engine(username);
-    }
-
-    /**
-     * Start the game.
-     */
-    public void startGame() {
-        System.out.println("What number is missing in the progression?");
-        while (game.isGameInProgress()) {
+    public static void startGame(String username) {
+        System.out.println(getInitQuestion());
+        int round = 0;
+        boolean gameInProgress = true;
+        while (gameInProgress) {
             String correctAnswer = askQuestion();
-            String userAnswer = Engine.setUserAnswer();
-            game.checkAnswer(userAnswer, correctAnswer);
+            String userAnswer = Engine.takeAnswer();
+            gameInProgress = Engine.checkAnswer(correctAnswer, userAnswer, username);
+            round++;
+            if (round == AMOUNT_OF_WINS_FOR_VICTORY && gameInProgress) {
+                Utils.printCongratulation(username);
+                gameInProgress = false;
+            }
         }
     }
 
-    private String askQuestion() {
+    private static String getInitQuestion() {
+        return "What number is missing in the progression?";
+    }
+
+    private static String askQuestion() {
         int[] progression = createProgression();
         int absentNumberPosition =
-                Engine.generateRandomNum(0, progression.length - 1);
+                Utils.generateRandomNum(0, progression.length - 1);
         String correctAnswer =
                 String.valueOf(progression[absentNumberPosition]);
         StringBuilder question = new StringBuilder();
@@ -42,23 +46,23 @@ public class Progression {
             }
             question.append(" ");
         }
-        Engine.printQuestion(question.toString());
+        Utils.printQuestion(question.toString());
         return correctAnswer;
     }
 
     /**
      * @return sequence of num in progression
      */
-    private int[] createProgression() {
+    private static int[] createProgression() {
         final int minNumBegin = 0;
         final int maxNumBegin = 100;
         final int minAmount = 5;
         final int maxAmount = 10;
         final int minGap = -10;
         final int maxGap = 10;
-        int begin = Engine.generateRandomNum(minNumBegin, maxNumBegin);
-        int amount = Engine.generateRandomNum(minAmount, maxAmount);
-        int gap = Engine.generateRandomNum(minGap, maxGap);
+        int begin = Utils.generateRandomNum(minNumBegin, maxNumBegin);
+        int amount = Utils.generateRandomNum(minAmount, maxAmount);
+        int gap = Utils.generateRandomNum(minGap, maxGap);
         int[] progression = new int[amount];
         progression[0] = begin;
         for (int i = 1; i < amount; i++) {

@@ -5,7 +5,7 @@ import hexlet.code.Utils;
 
 import static hexlet.code.Utils.AMOUNT_OF_WINS_FOR_VICTORY;
 
-public class Calc {
+public class Gcd {
     /**
      * Start the game.
      *
@@ -27,38 +27,28 @@ public class Calc {
         }
     }
 
-    /**
-     * Get game introduction.
-     *
-     * @return Game introduction
-     */
     private static String getInitQuestion() {
-        return "What is the result of the expression?";
+        return "Find the greatest common divisor of given numbers.";
     }
 
     private static String askQuestion() {
         int a = Utils.generateRandomNum();
         int b = Utils.generateRandomNum();
-        String operation = Utils.randomOperation();
-        Utils.printQuestion(a + " " + operation + " " + b);
-        return calculate(a, b, operation);
+        Utils.printQuestion(a + " " + b);
+        return findGCD(a, b);
     }
 
-    private static String calculate(int a, int b, String operation) {
-        int result = 0;
-        switch (operation) {
-            case "+" -> {
-                result = a + b;
+    //Неоптимальынй алгоритм, можно использовать алгоритм Эвклида
+    private static String findGCD(int a, int b) {
+        int gsd = 1;
+        int i = 1;
+        while (i <= a && i <= b) {
+            if ((a % i == 0) && (b % i == 0)) {
+                gsd = i;
             }
-            case "-" -> {
-                result = a - b;
-            }
-            case "*" -> {
-                result = a * b;
-            }
-            default -> {
-            }
+            i++;
         }
-        return String.valueOf(result);
+        return String.valueOf(gsd);
     }
+
 }

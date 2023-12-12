@@ -1,29 +1,39 @@
 package hexlet.code.games;
 
 import hexlet.code.Engine;
+import hexlet.code.Utils;
+
+import static hexlet.code.Utils.AMOUNT_OF_WINS_FOR_VICTORY;
 
 public class Prime {
-    private final Engine game;
-
-    public Prime(final String username) {
-        game = new Engine(username);
-    }
-
     /**
      * Start the game.
+     *
+     * @param username Username
      */
-    public void startGame() {
-        System.out.println("Answer 'yes' if given number is prime. Otherwise answer 'no'.");
-        while (game.isGameInProgress()) {
+    public static void startGame(String username) {
+        System.out.println(getInitQuestion());
+        int round = 0;
+        boolean gameInProgress = true;
+        while (gameInProgress) {
             String correctAnswer = askQuestion();
-            String userAnswer = Engine.setUserAnswer();
-            game.checkAnswer(userAnswer, correctAnswer);
+            String userAnswer = Engine.takeAnswer();
+            gameInProgress = Engine.checkAnswer(correctAnswer, userAnswer, username);
+            round++;
+            if (round == AMOUNT_OF_WINS_FOR_VICTORY && gameInProgress) {
+                Utils.printCongratulation(username);
+                gameInProgress = false;
+            }
         }
     }
 
-    private String askQuestion() {
-        int num = Engine.generateRandomNum();
-        Engine.printQuestion(String.valueOf(num));
+    private static String getInitQuestion() {
+        return "Answer 'yes' if given number is prime. Otherwise answer 'no'.";
+    }
+
+    private static String askQuestion() {
+        int num = Utils.generateRandomNum();
+        Utils.printQuestion(String.valueOf(num));
         if (checkNumIsPrime(num)) {
             return "yes";
         } else {
@@ -31,7 +41,7 @@ public class Prime {
         }
     }
 
-    private boolean checkNumIsPrime(int num) {
+    private static boolean checkNumIsPrime(int num) {
         if (num < 2) {
             return false;
         }
