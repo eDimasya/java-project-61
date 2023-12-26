@@ -1,9 +1,9 @@
 package hexlet.code.games;
 
-import hexlet.code.Engine;
 import hexlet.code.Utils;
 
-import static hexlet.code.Utils.AMOUNT_OF_WINS_FOR_VICTORY;
+import static hexlet.code.Engine.AMOUNT_OF_WINS_FOR_VICTORY;
+import static hexlet.code.Engine.startGame;
 
 public class Progression {
     /**
@@ -11,49 +11,27 @@ public class Progression {
      *
      * @param username Username
      */
-    public static void startGame(String username) {
-        System.out.println(getInitQuestion());
-        int round = 0;
-        boolean gameInProgress = true;
-        while (gameInProgress) {
-            String correctAnswer = askQuestion();
-            String userAnswer = Engine.takeAnswer();
-            gameInProgress = Engine.checkAnswer(correctAnswer, userAnswer, username);
-            round++;
-            if (round == AMOUNT_OF_WINS_FOR_VICTORY && gameInProgress) {
-                Utils.printCongratulation(username);
-                gameInProgress = false;
-            }
+    public static void launch(String username) {
+        System.out.println("What number is missing in the progression?");
+        String[] questions = new String[AMOUNT_OF_WINS_FOR_VICTORY];
+        String[] correctAnswers = new String[AMOUNT_OF_WINS_FOR_VICTORY];
+        for (int i = 0; i < AMOUNT_OF_WINS_FOR_VICTORY; i++) {
+            String[] progression = createProgression();
+            int absentNumberPosition =
+                    Utils.generateRandomNum(0, progression.length - 1);
+            correctAnswers[i] = progression[absentNumberPosition];
+            progression[absentNumberPosition] = "..";
+            questions[i] = String.join(" ", progression);
         }
-    }
-
-    private static String getInitQuestion() {
-        return "What number is missing in the progression?";
-    }
-
-    private static String askQuestion() {
-        int[] progression = createProgression();
-        int absentNumberPosition =
-                Utils.generateRandomNum(0, progression.length - 1);
-        String correctAnswer =
-                String.valueOf(progression[absentNumberPosition]);
-        StringBuilder question = new StringBuilder();
-        for (int i = 0; i < progression.length; i++) {
-            if (i == absentNumberPosition) {
-                question.append("..");
-            } else {
-                question.append(progression[i]);
-            }
-            question.append(" ");
-        }
-        Utils.printQuestion(question.toString());
-        return correctAnswer;
+        startGame(username,
+                questions,
+                correctAnswers);
     }
 
     /**
      * @return sequence of num in progression
      */
-    private static int[] createProgression() {
+    private static String[] createProgression() {
         final int minNumBegin = 0;
         final int maxNumBegin = 100;
         final int minAmount = 5;
@@ -64,10 +42,13 @@ public class Progression {
         int amount = Utils.generateRandomNum(minAmount, maxAmount);
         int gap = Utils.generateRandomNum(minGap, maxGap);
         int[] progression = new int[amount];
+        String[] strProgression = new String[amount];
         progression[0] = begin;
+        strProgression[0] = String.valueOf(progression[0]);
         for (int i = 1; i < amount; i++) {
             progression[i] = progression[i - 1] + gap;
+            strProgression[i] = String.valueOf(progression[i]);
         }
-        return progression;
+        return strProgression;
     }
 }

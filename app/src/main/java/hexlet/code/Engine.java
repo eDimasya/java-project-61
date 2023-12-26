@@ -1,23 +1,19 @@
 package hexlet.code;
 
+import java.util.Scanner;
+
 public class Engine {
 
-    /**
-     * Ask user a game question.
-     *
-     * @param question Question expression
-     */
-    public static void askQuestion(String question) {
-        Utils.printQuestion(question);
-    }
+    public static final int AMOUNT_OF_WINS_FOR_VICTORY = 3;
 
-    /**
-     * Take user answer.
-     *
-     * @return User answer
-     */
-    public static String takeAnswer() {
-        return Utils.setUserAnswer();
+    public static void startGame(String username, String[] questions, String[] correctAnswers) {
+        for (int round = 0; round < AMOUNT_OF_WINS_FOR_VICTORY; round++) {
+            System.out.println("Question: " + questions[round]);
+            if (!checkAnswer(correctAnswers[round], setUserAnswer(), username)) {
+                return;
+            }
+        }
+        System.out.println("Congratulations, " + username + "!");
     }
 
     /**
@@ -30,12 +26,23 @@ public class Engine {
      */
     public static boolean checkAnswer(String correctAnswer, String userAnswer, String username) {
         if (correctAnswer.equals(userAnswer)) {
-            Utils.printIsCorrect();
+            System.out.println("Correct!");
             return true;
         } else {
-            Utils.printAnswerIsWrong(userAnswer, correctAnswer, username);
+            System.out.println("'" + userAnswer + "' is wrong answer ;(. Correct answer was '" + correctAnswer + "'");
+            System.out.println("Let's try again, " + username + "!");
             return false;
         }
+    }
+
+    public static String answerOnQuestion(String question) {
+        System.out.println(question);
+        Scanner scanner = new Scanner(System.in);
+        return scanner.next();
+    }
+
+    public static String setUserAnswer() {
+        return answerOnQuestion("Your answer: ");
     }
 
 }

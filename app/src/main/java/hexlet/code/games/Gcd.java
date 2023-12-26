@@ -1,9 +1,9 @@
 package hexlet.code.games;
 
-import hexlet.code.Engine;
 import hexlet.code.Utils;
 
-import static hexlet.code.Utils.AMOUNT_OF_WINS_FOR_VICTORY;
+import static hexlet.code.Engine.AMOUNT_OF_WINS_FOR_VICTORY;
+import static hexlet.code.Engine.startGame;
 
 public class Gcd {
     /**
@@ -11,31 +11,19 @@ public class Gcd {
      *
      * @param username Username
      */
-    public static void startGame(String username) {
-        System.out.println(getInitQuestion());
-        int round = 0;
-        boolean gameInProgress = true;
-        while (gameInProgress) {
-            String correctAnswer = askQuestion();
-            String userAnswer = Engine.takeAnswer();
-            gameInProgress = Engine.checkAnswer(correctAnswer, userAnswer, username);
-            round++;
-            if (round == AMOUNT_OF_WINS_FOR_VICTORY && gameInProgress) {
-                Utils.printCongratulation(username);
-                gameInProgress = false;
-            }
+    public static void launch(String username) {
+        System.out.println("Find the greatest common divisor of given numbers.");
+        String[] questions = new String[AMOUNT_OF_WINS_FOR_VICTORY];
+        String[] correctAnswers = new String[AMOUNT_OF_WINS_FOR_VICTORY];
+        for (int i = 0; i < AMOUNT_OF_WINS_FOR_VICTORY; i++) {
+            int a = Utils.generateRandomNum();
+            int b = Utils.generateRandomNum();
+            questions[i] = (a + " " + b);
+            correctAnswers[i] = findGCD(a, b);
         }
-    }
-
-    private static String getInitQuestion() {
-        return "Find the greatest common divisor of given numbers.";
-    }
-
-    private static String askQuestion() {
-        int a = Utils.generateRandomNum();
-        int b = Utils.generateRandomNum();
-        Utils.printQuestion(a + " " + b);
-        return findGCD(a, b);
+        startGame(username,
+                questions,
+                correctAnswers);
     }
 
     //Неоптимальынй алгоритм, можно использовать алгоритм Эвклида
