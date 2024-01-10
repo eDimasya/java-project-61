@@ -10,26 +10,23 @@ import static hexlet.code.Engine.startGame;
 public class Calc {
     /**
      * Start the game.
-     *
-     * @param username Username
      */
-    public static void launch(String username) {
-        System.out.println("What is the result of the expression?");
-        String[] questions = new String[AMOUNT_OF_WINS_FOR_VICTORY];
-        String[] correctAnswers = new String[AMOUNT_OF_WINS_FOR_VICTORY];
+    public static void launch() {
+        String[][] questionsWithAnswers = new String[AMOUNT_OF_WINS_FOR_VICTORY][2];
         for (int i = 0; i < AMOUNT_OF_WINS_FOR_VICTORY; i++) {
             int a = Utils.generateRandomNum();
             int b = Utils.generateRandomNum();
             String operation = randomOperation();
-            questions[i] = a + " " + operation + " " + b;
-            correctAnswers[i] = calculate(a, b, operation);
+            //Question
+            questionsWithAnswers[i][0] = a + " " + operation + " " + b;
+            //Correct Answer
+            questionsWithAnswers[i][1] = String.valueOf(calculate(a, b, operation));
         }
-        startGame(username,
-                questions,
-                correctAnswers);
+        startGame("What is the result of the expression?",
+                questionsWithAnswers);
     }
 
-    private static String calculate(int a, int b, String operation) {
+    private static int calculate(int a, int b, String operation) {
         int result = 0;
         switch (operation) {
             case "+" -> {
@@ -44,7 +41,7 @@ public class Calc {
             default -> {
             }
         }
-        return String.valueOf(result);
+        return result;
     }
 
     private static String randomOperation() {

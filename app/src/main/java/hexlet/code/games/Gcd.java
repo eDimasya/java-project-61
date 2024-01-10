@@ -8,26 +8,21 @@ import static hexlet.code.Engine.startGame;
 public class Gcd {
     /**
      * Start the game.
-     *
-     * @param username Username
      */
-    public static void launch(String username) {
-        System.out.println("Find the greatest common divisor of given numbers.");
-        String[] questions = new String[AMOUNT_OF_WINS_FOR_VICTORY];
-        String[] correctAnswers = new String[AMOUNT_OF_WINS_FOR_VICTORY];
+    public static void launch() {
+        String[][] questionsWithAnswers = new String[AMOUNT_OF_WINS_FOR_VICTORY][2];
         for (int i = 0; i < AMOUNT_OF_WINS_FOR_VICTORY; i++) {
             int a = Utils.generateRandomNum();
             int b = Utils.generateRandomNum();
-            questions[i] = (a + " " + b);
-            correctAnswers[i] = findGCD(a, b);
+            questionsWithAnswers[i][0] = (a + " " + b);
+            questionsWithAnswers[i][1] = String.valueOf(findGCD(a, b));
         }
-        startGame(username,
-                questions,
-                correctAnswers);
+        startGame("Find the greatest common divisor of given numbers.",
+                questionsWithAnswers);
     }
 
     //Неоптимальынй алгоритм, можно использовать алгоритм Эвклида
-    private static String findGCD(int a, int b) {
+    private static int findGCD(int a, int b) {
         int gsd = 1;
         int i = 1;
         while (i <= a && i <= b) {
@@ -36,7 +31,7 @@ public class Gcd {
             }
             i++;
         }
-        return String.valueOf(gsd);
+        return gsd;
     }
 
 }

@@ -8,29 +8,16 @@ import static hexlet.code.Engine.startGame;
 public class Prime {
     /**
      * Start the game.
-     *
-     * @param username Username
      */
-    public static void launch(String username) {
-        System.out.println("Answer 'yes' if given number is prime. Otherwise answer 'no'.");
-        String[] questions = new String[AMOUNT_OF_WINS_FOR_VICTORY];
-        String[] correctAnswers = new String[AMOUNT_OF_WINS_FOR_VICTORY];
+    public static void launch() {
+        String[][] questionsWithAnswers = new String[AMOUNT_OF_WINS_FOR_VICTORY][2];
         for (int i = 0; i < AMOUNT_OF_WINS_FOR_VICTORY; i++) {
             int num = Utils.generateRandomNum();
-            questions[i] = String.valueOf(num);
-            correctAnswers[i] = setCorrectAnswer(num);
+            questionsWithAnswers[i][0] = String.valueOf(num);
+            questionsWithAnswers[i][1] = checkNumIsPrime(num) ? "yes" : "no";
         }
-        startGame(username,
-                questions,
-                correctAnswers);
-    }
-
-    private static String setCorrectAnswer(int num) {
-        if (checkNumIsPrime(num)) {
-            return "yes";
-        } else {
-            return "no";
-        }
+        startGame("Answer 'yes' if given number is prime. Otherwise answer 'no'.",
+                questionsWithAnswers);
     }
 
     private static boolean checkNumIsPrime(int num) {

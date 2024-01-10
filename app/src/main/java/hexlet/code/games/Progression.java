@@ -8,36 +8,43 @@ import static hexlet.code.Engine.startGame;
 public class Progression {
     /**
      * Start the game.
-     *
-     * @param username Username
      */
-    public static void launch(String username) {
-        System.out.println("What number is missing in the progression?");
-        String[] questions = new String[AMOUNT_OF_WINS_FOR_VICTORY];
-        String[] correctAnswers = new String[AMOUNT_OF_WINS_FOR_VICTORY];
+    public static void launch() {
+        String[][] questionsWithAnswers = new String[AMOUNT_OF_WINS_FOR_VICTORY][2];
         for (int i = 0; i < AMOUNT_OF_WINS_FOR_VICTORY; i++) {
-            String[] progression = createProgression();
-            int absentNumberPosition =
-                    Utils.generateRandomNum(0, progression.length - 1);
-            correctAnswers[i] = progression[absentNumberPosition];
+            final int minNumBegin = 0;
+            final int maxNumBegin = 100;
+            final int minAmount = 5;
+            final int maxAmount = 10;
+            final int minGap = -10;
+            final int maxGap = 10;
+            String[] progression = createProgression(minNumBegin, maxNumBegin, minAmount, maxAmount, minGap, maxGap);
+            int absentNumberPosition = Utils.generateRandomNum(0, progression.length - 1);
+            //Correct Answer
+            questionsWithAnswers[i][1] = progression[absentNumberPosition];
             progression[absentNumberPosition] = "..";
-            questions[i] = String.join(" ", progression);
+            //Question
+            questionsWithAnswers[i][0] = String.join(" ", progression);
         }
-        startGame(username,
-                questions,
-                correctAnswers);
+        startGame("What number is missing in the progression?",
+                questionsWithAnswers);
     }
 
     /**
+     * @param minNumBegin minimal initial value
+     * @param maxNumBegin maximum initial value
+     * @param minAmount   minimal amount of values
+     * @param maxAmount   maximum amount of values
+     * @param minGap      minimum gap between values
+     * @param maxGap      maximum gap between values
      * @return sequence of num in progression
      */
-    private static String[] createProgression() {
-        final int minNumBegin = 0;
-        final int maxNumBegin = 100;
-        final int minAmount = 5;
-        final int maxAmount = 10;
-        final int minGap = -10;
-        final int maxGap = 10;
+    private static String[] createProgression(int minNumBegin,
+                                              int maxNumBegin,
+                                              int minAmount,
+                                              int maxAmount,
+                                              int minGap,
+                                              int maxGap) {
         int begin = Utils.generateRandomNum(minNumBegin, maxNumBegin);
         int amount = Utils.generateRandomNum(minAmount, maxAmount);
         int gap = Utils.generateRandomNum(minGap, maxGap);

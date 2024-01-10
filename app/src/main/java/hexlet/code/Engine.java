@@ -6,43 +6,28 @@ public class Engine {
 
     public static final int AMOUNT_OF_WINS_FOR_VICTORY = 3;
 
-    public static void startGame(String username, String[] questions, String[] correctAnswers) {
+    public static void startGame(String rule, String[][] questionsAndAnswers) {
+        String username = Cli.userIntroduction();
+        System.out.println(rule);
         for (int round = 0; round < AMOUNT_OF_WINS_FOR_VICTORY; round++) {
-            System.out.println("Question: " + questions[round]);
-            if (!checkAnswer(correctAnswers[round], setUserAnswer(), username)) {
+            System.out.println("Question: " + questionsAndAnswers[round][0]);
+            String userAnswer = answerOnQuestion("Your answer: ");
+            if (questionsAndAnswers[round][1].equals(userAnswer)) {
+                System.out.println("Correct!");
+            } else {
+                System.out.println("'" + userAnswer + "' is wrong answer ;(. Correct answer was '"
+                        + questionsAndAnswers[round][1] + "'"
+                        + "\nLet's try again, " + username + "!");
                 return;
             }
         }
         System.out.println("Congratulations, " + username + "!");
     }
 
-    /**
-     * Answers checker.
-     *
-     * @param userAnswer    User Answer
-     * @param correctAnswer Correct Answer
-     * @param username      Username
-     * @return result of checking answer
-     */
-    public static boolean checkAnswer(String correctAnswer, String userAnswer, String username) {
-        if (correctAnswer.equals(userAnswer)) {
-            System.out.println("Correct!");
-            return true;
-        } else {
-            System.out.println("'" + userAnswer + "' is wrong answer ;(. Correct answer was '" + correctAnswer + "'");
-            System.out.println("Let's try again, " + username + "!");
-            return false;
-        }
-    }
-
     public static String answerOnQuestion(String question) {
         System.out.println(question);
         Scanner scanner = new Scanner(System.in);
         return scanner.next();
-    }
-
-    public static String setUserAnswer() {
-        return answerOnQuestion("Your answer: ");
     }
 
 }

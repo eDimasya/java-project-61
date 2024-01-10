@@ -19,11 +19,11 @@ public class App {
                 0 - Exit""");
         switch (pickedOption) {
             case "1" -> Cli.userIntroduction();
-            case "2" -> Even.launch(Cli.userIntroduction());
-            case "3" -> Calc.launch(Cli.userIntroduction());
-            case "4" -> Gcd.launch(Cli.userIntroduction());
-            case "5" -> Progression.launch(Cli.userIntroduction());
-            case "6" -> Prime.launch(Cli.userIntroduction());
+            case "2" -> Even.launch();
+            case "3" -> Calc.launch();
+            case "4" -> Gcd.launch();
+            case "5" -> Progression.launch();
+            case "6" -> Prime.launch();
             default -> {
             }
         }
