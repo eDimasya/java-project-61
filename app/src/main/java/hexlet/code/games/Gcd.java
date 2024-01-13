@@ -3,35 +3,34 @@ package hexlet.code.games;
 import hexlet.code.Utils;
 
 import static hexlet.code.Engine.AMOUNT_OF_WINS_FOR_VICTORY;
+import static hexlet.code.Engine.POSITION_OF_ANSWER;
+import static hexlet.code.Engine.POSITION_OF_QUESTION;
 import static hexlet.code.Engine.startGame;
 
 public class Gcd {
+    private static final String RULE = "Find the greatest common divisor of given numbers.";
+
     /**
      * Start the game.
      */
     public static void launch() {
         String[][] questionsWithAnswers = new String[AMOUNT_OF_WINS_FOR_VICTORY][2];
-        for (int i = 0; i < AMOUNT_OF_WINS_FOR_VICTORY; i++) {
+        for (int round = 0; round < AMOUNT_OF_WINS_FOR_VICTORY; round++) {
             int a = Utils.generateRandomNum();
             int b = Utils.generateRandomNum();
-            questionsWithAnswers[i][0] = (a + " " + b);
-            questionsWithAnswers[i][1] = String.valueOf(findGCD(a, b));
+            questionsWithAnswers[round][POSITION_OF_QUESTION] = (a + " " + b);
+            questionsWithAnswers[round][POSITION_OF_ANSWER] = String.valueOf(findGCD(a, b));
         }
-        startGame("Find the greatest common divisor of given numbers.",
-                questionsWithAnswers);
+        startGame(RULE, questionsWithAnswers);
     }
 
-    //Неоптимальынй алгоритм, можно использовать алгоритм Эвклида
     private static int findGCD(int a, int b) {
-        int gsd = 1;
-        int i = 1;
-        while (i <= a && i <= b) {
-            if ((a % i == 0) && (b % i == 0)) {
-                gsd = i;
-            }
-            i++;
+        while (b != 0) {
+            int tmp = a % b;
+            a = b;
+            b = tmp;
         }
-        return gsd;
+        return a;
     }
 
 }

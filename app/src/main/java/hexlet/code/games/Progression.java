@@ -3,59 +3,39 @@ package hexlet.code.games;
 import hexlet.code.Utils;
 
 import static hexlet.code.Engine.AMOUNT_OF_WINS_FOR_VICTORY;
+import static hexlet.code.Engine.POSITION_OF_ANSWER;
+import static hexlet.code.Engine.POSITION_OF_QUESTION;
 import static hexlet.code.Engine.startGame;
 
 public class Progression {
+    private static final String RULE = "What number is missing in the progression?";
+
     /**
      * Start the game.
      */
     public static void launch() {
         String[][] questionsWithAnswers = new String[AMOUNT_OF_WINS_FOR_VICTORY][2];
-        for (int i = 0; i < AMOUNT_OF_WINS_FOR_VICTORY; i++) {
+        for (int round = 0; round < AMOUNT_OF_WINS_FOR_VICTORY; round++) {
             final int minNumBegin = 0;
             final int maxNumBegin = 100;
+            final int begin = Utils.generateRandomNum(minNumBegin, maxNumBegin);
             final int minAmount = 5;
             final int maxAmount = 10;
+            final int amount = Utils.generateRandomNum(minAmount, maxAmount);
             final int minGap = -10;
             final int maxGap = 10;
-            String[] progression = createProgression(minNumBegin, maxNumBegin, minAmount, maxAmount, minGap, maxGap);
+            final int gap = Utils.generateRandomNum(minGap, maxGap);
+            String[] progression = new String[amount];
+            for (int i = 0; i < amount; i++) {
+                progression[i] = String.valueOf(begin + gap * i);
+            }
             int absentNumberPosition = Utils.generateRandomNum(0, progression.length - 1);
             //Correct Answer
-            questionsWithAnswers[i][1] = progression[absentNumberPosition];
+            questionsWithAnswers[round][POSITION_OF_ANSWER] = progression[absentNumberPosition];
             progression[absentNumberPosition] = "..";
             //Question
-            questionsWithAnswers[i][0] = String.join(" ", progression);
+            questionsWithAnswers[round][POSITION_OF_QUESTION] = String.join(" ", progression);
         }
-        startGame("What number is missing in the progression?",
-                questionsWithAnswers);
-    }
-
-    /**
-     * @param minNumBegin minimal initial value
-     * @param maxNumBegin maximum initial value
-     * @param minAmount   minimal amount of values
-     * @param maxAmount   maximum amount of values
-     * @param minGap      minimum gap between values
-     * @param maxGap      maximum gap between values
-     * @return sequence of num in progression
-     */
-    private static String[] createProgression(int minNumBegin,
-                                              int maxNumBegin,
-                                              int minAmount,
-                                              int maxAmount,
-                                              int minGap,
-                                              int maxGap) {
-        int begin = Utils.generateRandomNum(minNumBegin, maxNumBegin);
-        int amount = Utils.generateRandomNum(minAmount, maxAmount);
-        int gap = Utils.generateRandomNum(minGap, maxGap);
-        int[] progression = new int[amount];
-        String[] strProgression = new String[amount];
-        progression[0] = begin;
-        strProgression[0] = String.valueOf(progression[0]);
-        for (int i = 1; i < amount; i++) {
-            progression[i] = progression[i - 1] + gap;
-            strProgression[i] = String.valueOf(progression[i]);
-        }
-        return strProgression;
+        startGame(RULE, questionsWithAnswers);
     }
 }

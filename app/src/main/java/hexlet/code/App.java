@@ -6,9 +6,11 @@ import hexlet.code.games.Gcd;
 import hexlet.code.games.Prime;
 import hexlet.code.games.Progression;
 
+import java.util.Scanner;
+
 public class App {
     public static void main(final String[] args) {
-        String pickedOption = Engine.answerOnQuestion("""
+        System.out.println("""
                 Please enter the game number and press Enter.
                 1 - Greet
                 2 - Even
@@ -17,6 +19,8 @@ public class App {
                 5 - Progression
                 6 - Prime
                 0 - Exit""");
+        Scanner scanner = new Scanner(System.in);
+        String pickedOption = scanner.next();
         switch (pickedOption) {
             case "1" -> Cli.userIntroduction();
             case "2" -> Even.launch();
