@@ -9,12 +9,15 @@ public class Engine {
     public static final int POSITION_OF_QUESTION = 0;
 
     public static void startGame(String rule, String[][] questionsAndAnswers) {
-        String username = Cli.userIntroduction();
+        System.out.println("Welcome to the Brain Games!\n"
+                + "May I have your name?");
+        Scanner scanner = new Scanner(System.in);
+        String username = scanner.next();
+        System.out.println("Hello, " + username + "!");
         System.out.println(rule);
         for (int round = 0; round < AMOUNT_OF_WINS_FOR_VICTORY; round++) {
             System.out.println("Question: " + questionsAndAnswers[round][POSITION_OF_QUESTION]);
             System.out.println("Your answer: ");
-            Scanner scanner = new Scanner(System.in);
             String userAnswer = scanner.next();
             if (questionsAndAnswers[round][POSITION_OF_ANSWER].equals(userAnswer)) {
                 System.out.println("Correct!");

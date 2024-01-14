@@ -25,17 +25,26 @@ public class Progression {
             final int minGap = -10;
             final int maxGap = 10;
             final int gap = Utils.generateRandomNum(minGap, maxGap);
-            String[] progression = new String[amount];
-            for (int i = 0; i < amount; i++) {
-                progression[i] = String.valueOf(begin + gap * i);
-            }
+            String[] progression = createProgression(begin, amount, gap);
             int absentNumberPosition = Utils.generateRandomNum(0, progression.length - 1);
-            //Correct Answer
             questionsWithAnswers[round][POSITION_OF_ANSWER] = progression[absentNumberPosition];
             progression[absentNumberPosition] = "..";
-            //Question
             questionsWithAnswers[round][POSITION_OF_QUESTION] = String.join(" ", progression);
         }
         startGame(RULE, questionsWithAnswers);
+    }
+
+    /**
+     * @param begin         initial value
+     * @param amount        amount of values
+     * @param gap           gap between values
+     * @return sequence of num in progression
+     */
+    private static String[] createProgression(int begin, int amount, int gap) {
+        String[] progression = new String[amount];
+        for (int i = 0; i < amount; i++) {
+            progression[i] = String.valueOf(begin + gap * i);
+        }
+        return progression;
     }
 }

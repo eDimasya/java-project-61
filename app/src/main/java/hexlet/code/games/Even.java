@@ -19,8 +19,12 @@ public class Even {
         for (int round = 0; round < AMOUNT_OF_WINS_FOR_VICTORY; round++) {
             int randomNum = Utils.generateRandomNum();
             questionsWithAnswers[round][POSITION_OF_QUESTION] = String.valueOf(randomNum);
-            questionsWithAnswers[round][POSITION_OF_ANSWER] = (randomNum % 2 == 0) ? "yes" : "no";
+            questionsWithAnswers[round][POSITION_OF_ANSWER] = isEven(randomNum) ? "yes" : "no";
         }
         startGame(RULE, questionsWithAnswers);
+    }
+
+    private static boolean isEven(int num) {
+        return (num % 2 == 0);
     }
 }
